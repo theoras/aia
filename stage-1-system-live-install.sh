@@ -17,3 +17,4 @@ select_keymap(){
     done
 }
 
+select_keymap()
