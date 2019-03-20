@@ -1,5 +1,16 @@
 #!/bin/bash
 
+contains_element() { #{{{
+    #check if an element exist in a string
+    for e in "${@:2}"; do [[ $e == $1 ]] && break; done;
+  } #}}}
+
+  invalid_option() { #{{{
+    print_line
+    echo "Invalid option. Try another one."
+    pause_function
+  } #}}}
+
 #SELECT KEYMAP {{{
 select_keymap(){
   print_title "KEYMAP - https://wiki.archlinux.org/index.php/KEYMAP"
@@ -8,12 +19,12 @@ select_keymap(){
   print_info "The KEYMAP variable is specified in the /etc/rc.conf file. It defines what keymap the keyboard is in the virtual consoles. Keytable files are provided by the kbd package."
   echo "keymap list in /usr/share/kbd/keymaps"
     select KEYMAP in "${keymap_list[@]}"; do
-    if contains_element "$KEYMAP" "${keymap_list[@]}"; then
-      loadkeys "$KEYMAP";
-      break
-    else
-      invalid_option
-    fi
+        if contains_element "$KEYMAP" "${keymap_list[@]}"; then
+            loadkeys "$KEYMAP";
+            break
+        else
+            invalid_option
+        fi
     done
 }
 
