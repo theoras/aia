@@ -17,4 +17,4 @@ select_keymap(){
     done
 }
 
-select_keymap()
+select_keymap
